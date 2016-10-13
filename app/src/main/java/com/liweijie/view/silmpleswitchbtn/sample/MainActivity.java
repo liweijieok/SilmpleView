@@ -1,14 +1,11 @@
 package com.liweijie.view.silmpleswitchbtn.sample;
 
-import android.graphics.drawable.TransitionDrawable;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
-    private TransitionDrawable drawable;
-    boolean state = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,5 +13,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-
+    public void OpenProgress(View view) {
+        Intent progress = new Intent(this, ProgressBarActivity.class);
+        startActivity(progress);
+    }
 }

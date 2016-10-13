@@ -26,7 +26,7 @@ public class DynamicProgressBar extends View {
     private int progress; // 总分数
     private int progressColor;// 颜色
     private int currentAlphaLevel;// 实时的透明度比例
-    private int currentProgress;// 实时的长度
+    private float currentProgress;// 实时的长度
     private float textSize;// 字体大小
     private int rateProgress; //每隔30毫秒画一次，最多一百次
     private float specProgress; // 文字需要占整一个View的宽度
@@ -36,7 +36,7 @@ public class DynamicProgressBar extends View {
     private int blueProgress;
     private String textProgress; // 后边的文字
     private float proportion;// 总体比例，是一个float，小于等于1
-    private int perProgress; // 每次更新的进度
+    private float perProgress; // 每次更新的进度
 
 
     /**
@@ -99,7 +99,7 @@ public class DynamicProgressBar extends View {
         rateProgress = DEFAULT_RATE;
         specProgress = LiWeiJieUtil.getDimen(R.dimen.default_dynamic_spec, getContext());
         progressColor = DEFAULT_COLOR;
-        perProgress = progress % 100;
+        perProgress = (float) (progress*1.0 / 100);
         init(progress);
     }
 
@@ -111,6 +111,20 @@ public class DynamicProgressBar extends View {
     public DynamicProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
+    }
+    private void init(Context context, AttributeSet attrs, int defStyleAttr) {
+        TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DynamicProgressBarStyle, defStyleAttr, 0);
+        progress = array.getInteger(R.styleable.DynamicProgressBarStyle_dynamicProgress, MAX_PROGRESS);
+        textSize = array.getDimension(R.styleable.DynamicProgressBarStyle_dynamicTextSize, LiWeiJieUtil.getDimen(R.dimen.default_dynamic_text_size, context));
+        progressColor = array.getColor(R.styleable.DynamicProgressBarStyle_dynamicColor, DEFAULT_COLOR);
+        setRGB(progressColor);
+        rateProgress = array.getInteger(R.styleable.DynamicProgressBarStyle_dynamicRate, DEFAULT_RATE);
+        int maxProgress = array.getInteger(R.styleable.DynamicProgressBarStyle_dynamicMax, DEFAULT_RATE);
+        perProgress = (float) (maxProgress*1.0 / 100);
+        specProgress = array.getDimension(R.styleable.DynamicProgressBarStyle_dynamicSpec, LiWeiJieUtil.getDimen(R.dimen.default_dynamic_spec, context));
+        textProgress = array.getString(R.styleable.DynamicProgressBarStyle_dynamicText);
+        array.recycle();
+        init(progress);
     }
 
 
@@ -128,21 +142,6 @@ public class DynamicProgressBar extends View {
         currentProgress = 1;
         this.progress = progress;
         proportion = (float) (1.0 * progress / MAX_PROGRESS);
-    }
-
-    private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DynamicProgressBarStyle, defStyleAttr, 0);
-        progress = array.getInteger(R.styleable.DynamicProgressBarStyle_dynamicProgress, MAX_PROGRESS);
-        textSize = array.getDimension(R.styleable.DynamicProgressBarStyle_dynamicTextSize, LiWeiJieUtil.getDimen(R.dimen.default_dynamic_text_size, context));
-        progressColor = array.getColor(R.styleable.DynamicProgressBarStyle_dynamicColor, DEFAULT_COLOR);
-        setRGB(progressColor);
-        rateProgress = array.getInteger(R.styleable.DynamicProgressBarStyle_dynamicRate, DEFAULT_RATE);
-        int maxProgress = array.getInteger(R.styleable.DynamicProgressBarStyle_dynamicMax, DEFAULT_RATE);
-        perProgress = maxProgress % 100;
-        specProgress = array.getDimension(R.styleable.DynamicProgressBarStyle_dynamicSpec, LiWeiJieUtil.getDimen(R.dimen.default_dynamic_spec, context));
-        textProgress = array.getString(R.styleable.DynamicProgressBarStyle_dynamicText);
-        array.recycle();
-        init(progress);
     }
 
     private void setRGB(int progressColor) {
@@ -169,6 +168,7 @@ public class DynamicProgressBar extends View {
         // 画矩形
         canvas.drawColor(Color.TRANSPARENT);
         drawProgress(canvas);
+
         // 还需要画
         if (currentProgress < progress) {
             postDelayed(new Runnable() {
@@ -191,7 +191,7 @@ public class DynamicProgressBar extends View {
      * @param canvas
      */
     private void drawProgress(Canvas canvas) {
-        // 计算需要花的位置
+        // 计算需要画的位置
         mPaint.setAntiAlias(true);
         int color = Color.argb(0xFF - 0xFF * currentAlphaLevel, redProgress, greenProgress, blueProgress);
         mPaint.setColor(color);

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context="com.liweijie.view.silmpleswitchbtn.sample.MainActivity">
+
+    <com.liweijie.view.progress.DynamicProgressBar
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        app:dynamicColor="#ff0000"
+        app:dynamicMax="100"
+        app:dynamicProgress="60"
+        app:dynamicRate="30"
+        app:dynamicSpec="20dp"
+        app:dynamicText="%"
+        app:dynamicTextSize="14sp" />
+    <com.liweijie.view.progress.DynamicProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        app:dynamicColor="#ff0000"
+        app:dynamicMax="100"
+        app:dynamicProgress="0"
+        app:dynamicRate="30"
+        app:dynamicSpec="20dp"
+        app:dynamicText="%"
+        app:dynamicTextSize="14sp" />
+
+</LinearLayout>
