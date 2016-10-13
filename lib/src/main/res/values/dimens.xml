@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="default_dynamic_text_size">16sp</dimen>
+    <dimen name="default_dynamic_spec">22dp</dimen>
+</resources>

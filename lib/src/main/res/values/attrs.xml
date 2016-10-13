@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SimpleSwitchBtnStyle">
+        <attr name="simpleCircleChecked" format="color|reference"/>
+        <attr name="simpleCircleUnChecked" format="color|reference"/>
+        <attr name="simpleLineChecked" format="color|reference"/>
+        <attr name="simpleLineUnChecked" format="color|reference"/>
+        <attr name="simpleCircleRadio" format="dimension|reference"/>
+        <attr name="simpleLineWidth" format="dimension|reference"/>
+        <attr name="simpleIsCheck" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="DynamicProgressBarStyle">
+        <attr name="dynamicProgress" format="integer" />
+        <attr name="dynamicColor" format="color|reference" />
+        <attr name="dynamicRate" format="integer" />
+        <attr name="dynamicTextSize" format="dimension|reference" />
+        <attr name="dynamicMax" format="integer" />
+        <attr name="dynamicSpec" format="dimension|reference" />
+        <attr name="dynamicText" format="string|reference" />
+    </declare-styleable>
+</resources>
