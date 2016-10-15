@@ -1,6 +1,5 @@
 package com.liweijie.view.switchview;
 
-import android.view.View;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -9,47 +8,43 @@ import android.graphics.Paint;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.liweijie.view.R;
-
 import com.liweijie.view.util.LiWeiJieUtil;
 
+import static android.view.MotionEvent.ACTION_UP;
+
 /**
- * Created by liweijie on 2016/10/15.
- * <p>
- * 根据手势移动的SwitchView
- * </p>
+ * Created by liweijie on 2016/10/16.
  */
 
-public class TransitionSwitchView extends View {
+public class AnimSwitchView extends View {
     private static final String TAG = TransitionSwitchView.class.getSimpleName();
 
     private static final int DEFAULT_ENABLE_COLOR = Color.parseColor("#ff0000");
     private static final int DEFAULT_DIS_COLOR = Color.parseColor("#333333");
 
     /**
-     * 圆可用颜色
+     *选中圆颜色
      */
     private
     @ColorInt
     int enableCircleColor;
-
     /**
-     * 圆没有打开颜色
+     * 选中圆颜色
      */
     private
     @ColorInt
     int disCircleColor;
-
     /**
-     * 线可用颜色
+     * 选中线条颜色
      */
     private
     @ColorInt
     int enableLineColor;
-
     /**
-     * 线没有打开颜色
+     * 未选中线条颜色
      */
     private
     @ColorInt
@@ -58,51 +53,71 @@ public class TransitionSwitchView extends View {
      * 半径
      */
     private float radius;
-
     /**
-     * 是否是选中状态
+     * 是否可选
      */
     private boolean isChecked;
-
     /**
-     * 线的高度
+     * 线宽度
      */
     private float lineWidth;
-
     /**
      * 画笔
      */
     private Paint mPaint;
-
+    /**
+     * 回调
+     */
     private OnCheckedListener changeListener;
 
     /**
      * 坐标x
      */
-    private int circleX;
+    private float circleX;
     /**
      * 坐标y
      */
-    private int circleY;
+    private float circleY;
 
-    private int lineLeft;
-    private int lineTop;
-    private int lineRight;
-    private int lineBottom;
+    private float lineLeft;// 线坐标
+    private float lineTop;// 线坐标
+    private float lineRight;// 线坐标
+    private float lineBottom;// 线坐标
     /**
-     * 宽度
+     * View宽度
      */
     private float width;
 
-    public TransitionSwitchView(Context context) {
+    /**
+     * 动画结束的位置
+     */
+    private float animEnd;
+    /**
+     * 每次更新的长度
+     */
+    private float perAnim;
+    /**
+     * 分开5次更新
+     */
+    private static final int SEPARATION_LENGHT = 5;//分开五次更新
+    /**
+     * 是否有动画
+     */
+    private boolean hasAnim;
+    /**
+     * 动画方向，true为向右，false为向左
+     */
+    private boolean animDirection;
+
+    public AnimSwitchView(Context context) {
         this(context, null);
     }
 
-    public TransitionSwitchView(Context context, AttributeSet attrs) {
+    public AnimSwitchView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public TransitionSwitchView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AnimSwitchView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
     }
@@ -124,26 +139,24 @@ public class TransitionSwitchView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
-        circleX = isChecked ? (int) (getWidth() - radius) : (int) radius;
+        circleX = isChecked ? (getWidth() - radius) : radius;
         circleY = getHeight() / 2;
         lineLeft = 0;
-        lineBottom = lineTop = getMeasuredHeight() / 2;
-        lineRight = (int) (getMeasuredWidth() - radius);
+        lineBottom = lineTop = (float) (getMeasuredHeight() * 1.0 / 2);
+        lineRight = getMeasuredWidth() - radius;
         width = getMeasuredWidth();
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        super.onDraw(canvas);
         drawLine(canvas, isChecked);
         drawCircle(canvas, isChecked);
     }
+
 
     /**
      * 画线
@@ -170,6 +183,38 @@ public class TransitionSwitchView extends View {
         mPaint.setColor(currentColor);
         mPaint.setStyle(Paint.Style.FILL);
         canvas.drawCircle(circleX, circleY, radius, mPaint);
+        if (hasAnim) {
+            drawWithAnim();
+        }
+    }
+
+    /**
+     * 画动画
+     */
+    private void drawWithAnim() {
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //右动画
+                if (animDirection) {
+                    if (circleX + perAnim >= animEnd) { //是否到终点
+                        circleX = animEnd;
+                        hasAnim = false;
+                    } else {
+                        circleX += perAnim;
+                    }
+                } else { //左动画
+                    if (circleX - perAnim <= animEnd) {//是否到终点
+                        circleX = animEnd;
+                        hasAnim = false;
+                    } else {
+                        circleX -= perAnim;
+                    }
+                }
+                update();
+            }
+        }, 20);// 20ms画一次
+
     }
 
     @Override
@@ -177,44 +222,87 @@ public class TransitionSwitchView extends View {
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                updateCircleX(event.getX(), false);
+                updateCircleX(event.getX(), action);
                 break;
             case MotionEvent.ACTION_MOVE:
-                updateCircleX(event.getX(), false);
+                updateCircleX(event.getX(), action);
                 break;
-            case MotionEvent.ACTION_UP:
+            case ACTION_UP:
                 // 结束事件
-                updateCircleX(event.getX(), true);
+                updateCircleX(event.getX(), action);
                 break;
         }
         return true;
     }
-
-    /**
-     * 更新x坐标
-     *
-     * @param x
-     * @param isActionUp
-     */
-    private void updateCircleX(float x, boolean isActionUp) {
-        if (isActionUp) {
-            isChecked = hasHalfWidth(x);
-            circleX = (int) (hasHalfWidth(x) ? (width - radius) : radius);
+    private void updateCircleX(float x, int action) {
+        isChecked = hasHalfWidth(x);// 判断是否过半
+        if (action == MotionEvent.ACTION_DOWN) {
+            hasAnim = calculateDownAnim(x);
+        } else if (action == MotionEvent.ACTION_UP) {
+            hasAnim = calculateUpAnim(x);
             if (changeListener != null) {
-                changeListener.onCheckChange(this, isChecked);
+                changeListener.onCheckChange(this,isChecked);
             }
-        } else if (x <= radius) {    // 保证不会画出边界
-            circleX = (int) radius;
-            isChecked = false;
-        } else if (x >= width - radius) {
-            circleX = (int) (width - radius);
-            isChecked = true;
         } else {
-            // 判断x是否过半
-            isChecked = hasHalfWidth(x);
-            circleX = (int) x;
+            if (x >= width - radius) {
+                circleX = width - radius;
+            } else if (x < radius) {
+                circleX = radius;
+            } else {
+                circleX = x;
+            }
         }
         update();
+    }
+
+    /**
+     * 是否有结束动画
+     *
+     * @param x
+     * @return
+     */
+    private boolean calculateUpAnim(float x) {
+        // 如果在边界
+        animEnd = hasHalfWidth(x) ? width - radius : radius;
+        perAnim = Math.abs(animEnd - circleX) / SEPARATION_LENGHT;
+        animDirection = isChecked;
+        return true;
+    }
+
+    /**
+     * 是否有按下动画
+     *
+     * @param x
+     * @return
+     */
+    private boolean calculateDownAnim(float x) {
+        if (x >= circleX - radius && x <= circleX + radius) {
+            if (x <= radius) {//在边界
+                circleX = radius;
+            } else if (x + radius >= width) { //在边界
+                circleX = (width - radius);
+            } else {
+                circleX = x;
+            }
+            return false;
+        }
+        perAnim = Math.abs(animEnd - circleX)/SEPARATION_LENGHT;
+        animDirection = isChecked;
+        // 计算动画起始位置和每次长度
+        if (x > circleX + radius) { // 右动画
+            if (x >= width - radius) {
+                animEnd = width - radius;
+            } else {
+                animEnd = x;
+            }
+        } else { //左动画
+            if (x < radius) {
+                animEnd = radius;
+            } else {
+                animEnd = x;
+            }
+        }
+        return true;
     }
 
     /**
@@ -228,10 +316,15 @@ public class TransitionSwitchView extends View {
         }
     }
 
+    /**
+     * 是否过半
+     *
+     * @param x
+     * @return
+     */
     private boolean hasHalfWidth(float x) {
         return x > (width / 2);
     }
-
 
     /**
      * 设置状态
@@ -242,6 +335,7 @@ public class TransitionSwitchView extends View {
         this.isChecked = isChecked;
         update();
     }
+
 
     /**
      * 回调监听
@@ -254,6 +348,7 @@ public class TransitionSwitchView extends View {
 
     // 回调监听
     public interface OnCheckedListener {
-        void onCheckChange(TransitionSwitchView view, boolean isChecked);
+        void onCheckChange(AnimSwitchView view, boolean isChecked);
     }
+
 }

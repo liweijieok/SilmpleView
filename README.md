@@ -23,7 +23,10 @@
 
 ![](http://ocxgpwj6l.bkt.clouddn.com/GIF.gif)
 
-## TransitionSwitchView
+## TransitionSwitchView和AnimSwitchView
+
+TransitionSwitchView只是带有move动画，AnimSwitchView带有up，move和down动画，他们的属性相同，不同在于事件处理和重绘机制。
+
 实现的方式是完全通过集成View，重写onTouchEvent事件实现，定义的属性有
 
 ```
@@ -41,8 +44,11 @@
 ```
 
 效果图：
+TransitionSwitchView
 
-![](http://ocxgpwj6l.bkt.clouddn.com/switch.gif)
+![](http://ocxgpwj6l.bkt.clouddn.com/switch.gif) 
 
+AnimSwitchView
 
+![](http://ocxgpwj6l.bkt.clouddn.com/animswitch.gif) 
 

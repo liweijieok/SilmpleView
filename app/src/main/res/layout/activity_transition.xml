@@ -10,17 +10,43 @@
     android:orientation="vertical"
     tools:context="com.liweijie.view.silmpleswitchbtn.sample.MainActivity">
 
+    <TextView
+        android:layout_margin="20dp"
+        android:textColor="#333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TransitionSwitchView" />
+
     <com.liweijie.view.switchview.TransitionSwitchView
         android:id="@+id/transition"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        app:transitionCircleDisColor="#333333"
+        app:transitionCircleEnableColor="#ff0000"
+        app:transitionCircleRadius="6dp"
+        app:transitionIsChecked="true"
+        app:transitionLineDisColor="#333333"
+        app:transitionLineEnableColor="#ff0000"
+        app:transitionLineWidth="3dp" />
+
+    <TextView
+        android:textColor="#333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AnimSwitchView" />
+
+    <com.liweijie.view.switchview.AnimSwitchView
+        android:layout_margin="20dp"
+        android:id="@+id/anim"
         android:layout_width="60dp"
         android:layout_height="30dp"
         app:transitionCircleDisColor="#333333"
         app:transitionCircleEnableColor="#ff0000"
-        app:transitionLineWidth="5dp"
+        app:transitionCircleRadius="6dp"
         app:transitionIsChecked="true"
-        app:transitionCircleRadius="10dp"
         app:transitionLineDisColor="#333333"
-        app:transitionLineEnableColor="#ff0000" />
+        app:transitionLineEnableColor="#ff0000"
+        app:transitionLineWidth="3dp" />
 
 
 </LinearLayout>
