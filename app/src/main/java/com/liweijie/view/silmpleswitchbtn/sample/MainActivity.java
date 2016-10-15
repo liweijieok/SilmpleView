@@ -17,4 +17,9 @@ public class MainActivity extends AppCompatActivity {
         Intent progress = new Intent(this, ProgressBarActivity.class);
         startActivity(progress);
     }
+
+    public void openSwitch(View view) {
+        Intent progress = new Intent(this, TransitionSwitchActivity.class);
+        startActivity(progress);
+    }
 }

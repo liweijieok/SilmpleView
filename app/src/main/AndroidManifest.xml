@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProgressBarActivity"/>
+        <activity android:name=".TransitionSwitchActivity"/>
     </application>
 
 </manifest>

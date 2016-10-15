@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="SimpleSwitchBtnStyle">
-        <attr name="simpleCircleChecked" format="color|reference"/>
-        <attr name="simpleCircleUnChecked" format="color|reference"/>
-        <attr name="simpleLineChecked" format="color|reference"/>
-        <attr name="simpleLineUnChecked" format="color|reference"/>
-        <attr name="simpleCircleRadio" format="dimension|reference"/>
-        <attr name="simpleLineWidth" format="dimension|reference"/>
-        <attr name="simpleIsCheck" format="boolean"/>
+    <declare-styleable name="TransitionSwitchViewStyle">
+        <attr name="transitionCircleEnableColor" format="color|reference"/>
+        <attr name="transitionCircleDisColor" format="color|reference"/>
+        <attr name="transitionLineEnableColor" format="color|reference"/>
+        <attr name="transitionLineDisColor" format="color|reference"/>
+        <attr name="transitionCircleRadius" format="dimension|reference"/>
+        <attr name="transitionLineWidth" format="dimension|reference"/>
+        <attr name="transitionIsChecked" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="DynamicProgressBarStyle">
         <attr name="dynamicProgress" format="integer" />

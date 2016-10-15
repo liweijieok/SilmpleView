@@ -18,5 +18,10 @@
         android:layout_height="wrap_content"
         android:text="进度条" />
 
+    <Button
+        android:onClick="openSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TransitionSwitch" />
 
 </LinearLayout>
