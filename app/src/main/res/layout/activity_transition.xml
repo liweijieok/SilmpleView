@@ -12,7 +12,7 @@
 
     <com.liweijie.view.silmpleswitchbtn.TransitionSwitchView
         android:id="@+id/transition"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_height="30dp"
         app:transitionCircleDisColor="#333333"
         app:transitionCircleEnableColor="#ff0000"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="TransitionSwitchViewStyle">
+        <!--圆的两种状态颜色，线条两种状态颜色呢，圆的半径，线条宽度，是否已打开-->
         <attr name="transitionCircleEnableColor" format="color|reference"/>
         <attr name="transitionCircleDisColor" format="color|reference"/>
         <attr name="transitionLineEnableColor" format="color|reference"/>
@@ -10,6 +11,7 @@
         <attr name="transitionIsChecked" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="DynamicProgressBarStyle">
+        <!--当前进度,进度条没有透明度时候的颜色,进度条更新速率(ms),文字大小，进度条最大值，文字宽度，文字-->
         <attr name="dynamicProgress" format="integer" />
         <attr name="dynamicColor" format="color|reference" />
         <attr name="dynamicRate" format="integer" />

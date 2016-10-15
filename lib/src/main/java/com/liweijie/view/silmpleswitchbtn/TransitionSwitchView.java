@@ -88,7 +88,9 @@ public class TransitionSwitchView extends View {
     private int lineTop;
     private int lineRight;
     private int lineBottom;
-
+    /**
+     * 宽度
+     */
     private float width;
 
     public TransitionSwitchView(Context context) {
@@ -142,6 +144,11 @@ public class TransitionSwitchView extends View {
         drawCircle(canvas, isChecked);
     }
 
+    /**
+     *  画线
+     * @param canvas
+     * @param isChecked
+     */
     private void drawLine(Canvas canvas, boolean isChecked) {
         @ColorInt int currentColor = isChecked ? enableLineColor : disLineColor;
         mPaint.setColor(currentColor);
@@ -150,6 +157,11 @@ public class TransitionSwitchView extends View {
         canvas.drawLine(lineLeft, lineTop, lineRight, lineBottom, mPaint);
     }
 
+    /**
+     *  画圆
+     * @param canvas
+     * @param isChecked
+     */
     private void drawCircle(Canvas canvas, boolean isChecked) {
         @ColorInt int currentColor = isChecked ? enableCircleColor : disCircleColor;
         mPaint.setColor(currentColor);
@@ -162,7 +174,6 @@ public class TransitionSwitchView extends View {
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                Log.i(TAG, action + "=ACTION_DOWN");
                 updateCircleX(event.getX(), false);
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -176,6 +187,10 @@ public class TransitionSwitchView extends View {
         return true;
     }
 
+    /** 更新x坐标
+     * @param x
+     * @param isActionUp
+     */
     private void updateCircleX(float x, boolean isActionUp) {
         if (isActionUp) {
             isChecked = hasHalfWidth(x);
@@ -195,6 +210,17 @@ public class TransitionSwitchView extends View {
             circleX = (int) x;
         }
         update();
+    }
+
+    /**
+     * 重绘
+     */
+    public void update() {
+        if (LiWeiJieUtil.isUIThread()) {
+            invalidate();
+        } else {
+            postInvalidate();
+        }
     }
 
     private boolean hasHalfWidth(float x) {
@@ -221,16 +247,7 @@ public class TransitionSwitchView extends View {
         this.changeListener = listener;
     }
 
-    /**
-     * 重绘
-     */
-    public void update() {
-        if (LiWeiJieUtil.isUIThread()) {
-            invalidate();
-        } else {
-            postInvalidate();
-        }
-    }
+
 
     // 回调监听
     public interface OnCheckedListener {
