@@ -1,7 +1,5 @@
 package com.liweijie.view.silmpleswitchbtn;
 
-import android.content.Context;
-
 /**
  * Instrumentation test, which will execute on an Android device.
  *

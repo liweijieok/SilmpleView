@@ -4,8 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.liweijie.view.progress.DynamicProgressBar;
-import com.liweijie.view.silmpleswitchbtn.TransitionSwitchView;
+import com.liweijie.view.switchview.TransitionSwitchView;
 
 public class TransitionSwitchActivity extends AppCompatActivity {
 

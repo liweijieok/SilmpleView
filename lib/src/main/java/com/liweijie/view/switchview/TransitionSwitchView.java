@@ -1,5 +1,6 @@
-package com.liweijie.view.silmpleswitchbtn;
+package com.liweijie.view.switchview;
 
+import android.view.View;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -7,9 +8,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
+
+import com.liweijie.view.R;
 
 import com.liweijie.view.util.LiWeiJieUtil;
 
@@ -145,7 +146,8 @@ public class TransitionSwitchView extends View {
     }
 
     /**
-     *  画线
+     * 画线
+     *
      * @param canvas
      * @param isChecked
      */
@@ -158,7 +160,8 @@ public class TransitionSwitchView extends View {
     }
 
     /**
-     *  画圆
+     * 画圆
+     *
      * @param canvas
      * @param isChecked
      */
@@ -187,16 +190,18 @@ public class TransitionSwitchView extends View {
         return true;
     }
 
-    /** 更新x坐标
+    /**
+     * 更新x坐标
+     *
      * @param x
      * @param isActionUp
      */
     private void updateCircleX(float x, boolean isActionUp) {
         if (isActionUp) {
             isChecked = hasHalfWidth(x);
-            circleX = (int) (hasHalfWidth(x)?(width - radius):radius);
+            circleX = (int) (hasHalfWidth(x) ? (width - radius) : radius);
             if (changeListener != null) {
-                changeListener.onCheckChange(this,isChecked);
+                changeListener.onCheckChange(this, isChecked);
             }
         } else if (x <= radius) {    // 保证不会画出边界
             circleX = (int) radius;
@@ -246,8 +251,6 @@ public class TransitionSwitchView extends View {
     public void setChangeListener(OnCheckedListener listener) {
         this.changeListener = listener;
     }
-
-
 
     // 回调监听
     public interface OnCheckedListener {

@@ -10,7 +10,7 @@
     android:orientation="vertical"
     tools:context="com.liweijie.view.silmpleswitchbtn.sample.MainActivity">
 
-    <com.liweijie.view.silmpleswitchbtn.TransitionSwitchView
+    <com.liweijie.view.switchview.TransitionSwitchView
         android:id="@+id/transition"
         android:layout_width="60dp"
         android:layout_height="30dp"

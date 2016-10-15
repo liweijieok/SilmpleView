@@ -1,7 +1,5 @@
 package com.liweijie.view.silmpleswitchbtn.sample;
 
-import android.content.Context;
-
 import static junit.framework.Assert.assertEquals;
 
 /**
