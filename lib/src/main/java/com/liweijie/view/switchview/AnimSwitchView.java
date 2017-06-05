@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.liweijie.view.R;
-import com.liweijie.view.util.LiWeiJieUtil;
+import com.liweijie.view.util.CommentUtil;
 
 import static android.view.MotionEvent.ACTION_UP;
 
@@ -309,7 +309,7 @@ public class AnimSwitchView extends View {
      * 重绘
      */
     public void update() {
-        if (LiWeiJieUtil.isUIThread()) {
+        if (CommentUtil.isUIThread()) {
             invalidate();
         } else {
             postInvalidate();

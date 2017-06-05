@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 
 import com.liweijie.view.R;
 
-import com.liweijie.view.util.LiWeiJieUtil;
+import com.liweijie.view.util.CommentUtil;
 
 /**
  * Created by liweijie on 2016/10/15.
@@ -221,7 +221,7 @@ public class TransitionSwitchView extends View {
      * 重绘
      */
     public void update() {
-        if (LiWeiJieUtil.isUIThread()) {
+        if (CommentUtil.isUIThread()) {
             invalidate();
         } else {
             postInvalidate();

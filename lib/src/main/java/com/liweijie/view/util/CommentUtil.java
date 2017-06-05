@@ -9,7 +9,7 @@ import android.support.annotation.DimenRes;
  * 工具类
  */
 
-public class LiWeiJieUtil {
+public class CommentUtil {
 
     /**
      *  是否是UI线程
@@ -28,4 +28,6 @@ public class LiWeiJieUtil {
     public static float getDimen(@DimenRes int resId, Context context) {
         return resId == -1 ? 0 : context.getResources().getDimension(resId);
     }
+
+
 }

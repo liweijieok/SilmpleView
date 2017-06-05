@@ -12,12 +12,25 @@
     </declare-styleable>
     <declare-styleable name="DynamicProgressBarStyle">
         <!--当前进度,进度条没有透明度时候的颜色,进度条更新速率(ms),文字大小，进度条最大值，文字宽度，文字-->
-        <attr name="dynamicProgress" format="integer" />
-        <attr name="dynamicColor" format="color|reference" />
-        <attr name="dynamicRate" format="integer" />
-        <attr name="dynamicTextSize" format="dimension|reference" />
-        <attr name="dynamicMax" format="integer" />
-        <attr name="dynamicSpec" format="dimension|reference" />
-        <attr name="dynamicText" format="string|reference" />
+        <attr name="dynamicProgress" format="integer"/>
+        <attr name="dynamicColor" format="color|reference"/>
+        <attr name="dynamicRate" format="integer"/>
+        <attr name="dynamicTextSize" format="dimension|reference"/>
+        <attr name="dynamicMax" format="integer"/>
+        <attr name="dynamicSpec" format="dimension|reference"/>
+        <attr name="dynamicText" format="string|reference"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomRatingStyle">
+        <!--宽，高，间距，激活的数量，没有激活的数量，激活的icon,没有激活的icon-->
+        <!--属性分别是：单个的宽，高，之间的距离，激活的数量，总数量，激活的drawable，没有激活的drawable-->
+        <attr name="custom_rate_width" format="dimension"/>
+        <attr name="custom_rate_height" format="dimension"/>
+        <attr name="custom_rate_padding" format="dimension"/>
+        <attr name="custom_rate_active_size" format="integer"/>
+        <attr name="custom_rate_size" format="integer"/>
+        <attr name="custom_rate_active_drawable" format="reference"/>
+        <attr name="custom_rate_disactive_drawable" format="reference"/>
+    </declare-styleable>
+    】
 </resources>

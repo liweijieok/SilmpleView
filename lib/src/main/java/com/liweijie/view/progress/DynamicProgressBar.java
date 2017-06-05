@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.liweijie.view.R;
-import com.liweijie.view.util.LiWeiJieUtil;
+import com.liweijie.view.util.CommentUtil;
 
 /**
  * Created by liweijie on 2016/10/13.
@@ -65,7 +65,7 @@ public class DynamicProgressBar extends View {
      * 更新重绘进度条
      */
     private void update() {
-        if (LiWeiJieUtil.isUIThread()) {
+        if (CommentUtil.isUIThread()) {
             invalidate();
         } else {
             postInvalidate();
@@ -94,10 +94,10 @@ public class DynamicProgressBar extends View {
      */
     public DynamicProgressBar(Context context, int progress) {
         super(context);
-        this.textSize = LiWeiJieUtil.getDimen(R.dimen.default_dynamic_text_size, getContext());
+        this.textSize = CommentUtil.getDimen(R.dimen.default_dynamic_text_size, getContext());
         setRGB(DEFAULT_COLOR);
         rateProgress = DEFAULT_RATE;
-        specProgress = LiWeiJieUtil.getDimen(R.dimen.default_dynamic_spec, getContext());
+        specProgress = CommentUtil.getDimen(R.dimen.default_dynamic_spec, getContext());
         progressColor = DEFAULT_COLOR;
         perProgress = (float) (progress*1.0 / 100);
         init(progress);
@@ -115,13 +115,13 @@ public class DynamicProgressBar extends View {
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DynamicProgressBarStyle, defStyleAttr, 0);
         progress = array.getInteger(R.styleable.DynamicProgressBarStyle_dynamicProgress, MAX_PROGRESS);
-        textSize = array.getDimension(R.styleable.DynamicProgressBarStyle_dynamicTextSize, LiWeiJieUtil.getDimen(R.dimen.default_dynamic_text_size, context));
+        textSize = array.getDimension(R.styleable.DynamicProgressBarStyle_dynamicTextSize, CommentUtil.getDimen(R.dimen.default_dynamic_text_size, context));
         progressColor = array.getColor(R.styleable.DynamicProgressBarStyle_dynamicColor, DEFAULT_COLOR);
         setRGB(progressColor);
         rateProgress = array.getInteger(R.styleable.DynamicProgressBarStyle_dynamicRate, DEFAULT_RATE);
         int maxProgress = array.getInteger(R.styleable.DynamicProgressBarStyle_dynamicMax, DEFAULT_RATE);
         perProgress = (float) (maxProgress*1.0 / 100);
-        specProgress = array.getDimension(R.styleable.DynamicProgressBarStyle_dynamicSpec, LiWeiJieUtil.getDimen(R.dimen.default_dynamic_spec, context));
+        specProgress = array.getDimension(R.styleable.DynamicProgressBarStyle_dynamicSpec, CommentUtil.getDimen(R.dimen.default_dynamic_spec, context));
         textProgress = array.getString(R.styleable.DynamicProgressBarStyle_dynamicText);
         array.recycle();
         init(progress);
@@ -201,7 +201,7 @@ public class DynamicProgressBar extends View {
         rectF.right = (getMeasuredWidth() - specProgress) * currentProgress * proportion / progress;
         rectF.bottom = getMeasuredHeight();
         canvas.drawRoundRect(rectF, 4, 4, mPaint);
-        float textX = rectF.right + LiWeiJieUtil.getDimen(R.dimen.default_dynamic_spec, getContext());
+        float textX = rectF.right + CommentUtil.getDimen(R.dimen.default_dynamic_spec, getContext());
         float textY = rectF.bottom;
         mPaint.setTextAlign(Paint.Align.CENTER);
         Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();

@@ -22,4 +22,9 @@ public class MainActivity extends AppCompatActivity {
         Intent progress = new Intent(this, TransitionSwitchActivity.class);
         startActivity(progress);
     }
+
+    public void openRate(View view) {
+        Intent progress = new Intent(this, CustomRatingActivity.class);
+        startActivity(progress);
+    }
 }

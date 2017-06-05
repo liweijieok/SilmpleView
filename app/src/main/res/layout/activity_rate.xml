@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.liweijie.view.silmpleswitchbtn.sample.MainActivity">
+
+    <com.liweijie.view.progress.CustomRatingBar
+        android:id="@+id/almanac_yunshi_treasure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minWidth="160dp"
+        app:custom_rate_active_drawable="@drawable/custom_rateingbar_active"
+        app:custom_rate_active_size="3"
+        app:custom_rate_disactive_drawable="@drawable/custom_rateingbar_disactive"
+        app:custom_rate_padding="5dp"
+        app:custom_rate_size="5"
+        app:custom_rate_width="12dp"/>
+
+</LinearLayout>
