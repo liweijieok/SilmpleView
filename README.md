@@ -50,5 +50,9 @@ TransitionSwitchView
 
 AnimSwitchView
 
-![](http://ocxgpwj6l.bkt.clouddn.com/animswitch.gif) 
+![](http://ocxgpwj6l.bkt.clouddn.com/animswitch.gif)
+
+CustomRatingBar
+
+![](http://ocxgpwj6l.bkt.clouddn.com/ratingbar.png)
 
